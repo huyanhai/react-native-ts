@@ -1,12 +1,8 @@
-import {Button, Text} from 'react-native';
+import React from 'react';
+import {Text} from 'react-native';
 
-const List = ({navigation}) => {
-  return (
-    <>
-      <Button title="Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="返回" onPress={() => navigation.goBack()} />
-    </>
-  );
+const User = () => {
+  return <Text>User</Text>;
 };
 
-export default List;
+export default User;

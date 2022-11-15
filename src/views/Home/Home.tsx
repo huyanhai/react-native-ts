@@ -1,8 +1,7 @@
 import {FC, useEffect, useState} from 'react';
-import React, {Text, Button, View} from 'react-native';
+import React, {Text, Button, View, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import {} from '@react-navigation/native';
 
 import {setLang} from '../../store/modules/global/action';
 import {getInfo} from '../../api/home';
@@ -32,14 +31,24 @@ const Home: FC<any> = ({lang, setLang, navigation}) => {
   }, [lang]);
 
   return (
-    <View>
-      <Text>home{lang}</Text>
-      <Text>多语言{t('lang')}</Text>
-      <Text>{JSON.stringify(info)}</Text>
-      <Button onPress={changeLang} title="change" />
-      <Button onPress={getInfos} title="获取消息" />
-      <Button onPress={() => navigation.push('Lists')} title="跳转到列表" />
-    </View>
+    <SafeAreaView>
+      <View>
+        <Text>home{lang}</Text>
+        <Text>多语言{t('lang')}</Text>
+        <Text>{JSON.stringify(info)}</Text>
+        <Button onPress={changeLang} title="change" />
+        <Button onPress={getInfos} title="获取消息" />
+        <Button
+          onPress={() =>
+            navigation.navigate('HomeInfo', {
+              id: 1,
+              info: 'list',
+            })
+          }
+          title="跳转到详情"
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
