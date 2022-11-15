@@ -2,6 +2,7 @@ import {FC, useEffect, useState} from 'react';
 import React, {Text, Button, View} from 'react-native';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
+import {} from '@react-navigation/native';
 
 import {setLang} from '../../store/modules/global/action';
 import {getInfo} from '../../api/home';
@@ -11,7 +12,7 @@ interface IHomeProps {
   setLang: (lang: string) => void;
 }
 
-const Home: FC<IHomeProps> = ({lang, setLang}) => {
+const Home: FC<any> = ({lang, setLang, navigation}) => {
   const {i18n, t} = useTranslation();
   const [info, setInfo] = useState({});
 
@@ -37,6 +38,7 @@ const Home: FC<IHomeProps> = ({lang, setLang}) => {
       <Text>{JSON.stringify(info)}</Text>
       <Button onPress={changeLang} title="change" />
       <Button onPress={getInfos} title="获取消息" />
+      <Button onPress={() => navigation.push('Lists')} title="跳转到列表" />
     </View>
   );
 };
