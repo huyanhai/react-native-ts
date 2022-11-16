@@ -1,8 +1,13 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Button, Text} from 'react-native';
 
-const HomeInfo = () => {
-  return <Text>HomeInfo</Text>;
+const HomeInfo = ({navigation}) => {
+  return (
+    <>
+      <Button title="切换tab" onPress={() => navigation.navigate('TabMe')} />
+      <Text>HomeInfo</Text>
+    </>
+  );
 };
 
 export default HomeInfo;

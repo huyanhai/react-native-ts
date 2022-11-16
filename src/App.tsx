@@ -4,18 +4,23 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {I18nextProvider} from 'react-i18next';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {store, persistor} from './store';
 import i18n from './locales';
 
-import HomeStack from './views/Home/Index';
-import ListStack from './views/List/Index';
-import MeStack from './views/Me/Index';
+import Tab from './views/Tab';
 
-const Tab = createBottomTabNavigator();
+import Info from './Info';
+import News from './News';
+
+import CreateRoute from './router/Index';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
+  console.log(Tab);
+
   return (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
@@ -38,23 +43,16 @@ const App = () => {
                 })}
               />
             </Stack.Navigator> */}
-            <Tab.Navigator initialRouteName="TabHome">
-              <Tab.Screen
-                name="TabHome"
-                component={HomeStack}
-                options={{title: '首页', headerShown: false}}
+            <CreateRoute />
+            {/* <Stack.Navigator>
+              <Stack.Screen
+                name="Tab"
+                component={Tab}
+                options={{headerShown: false}}
               />
-              <Tab.Screen
-                name="TabList"
-                component={ListStack}
-                options={{title: '列表', headerShown: false}}
-              />
-              <Tab.Screen
-                name="TabMe"
-                component={MeStack}
-                options={{title: '个人中心', headerShown: false}}
-              />
-            </Tab.Navigator>
+              <Stack.Screen component={Info} name="Info" />
+              <Stack.Screen component={News} name="News" />
+            </Stack.Navigator> */}
           </NavigationContainer>
         </PersistGate>
       </Provider>

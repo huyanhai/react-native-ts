@@ -39,6 +39,10 @@ const Home: FC<any> = ({lang, setLang, navigation}) => {
         <Button onPress={changeLang} title="change" />
         <Button onPress={getInfos} title="获取消息" />
         <Button
+          onPress={() => navigation.navigate('Info')}
+          title="跳转到Info"
+        />
+        <Button
           onPress={() =>
             navigation.navigate('HomeInfo', {
               id: 1,
