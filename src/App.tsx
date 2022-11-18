@@ -4,23 +4,13 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {I18nextProvider} from 'react-i18next';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {store, persistor} from './store';
 import i18n from './locales';
 
-import Tab from './views/Tab';
-
-import Info from './Info';
-import News from './News';
-
 import CreateRoute from './router/Index';
 
-const Stack = createNativeStackNavigator();
-
 const App = () => {
-  console.log(Tab);
-
   return (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
@@ -44,15 +34,6 @@ const App = () => {
               />
             </Stack.Navigator> */}
             <CreateRoute />
-            {/* <Stack.Navigator>
-              <Stack.Screen
-                name="Tab"
-                component={Tab}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen component={Info} name="Info" />
-              <Stack.Screen component={News} name="News" />
-            </Stack.Navigator> */}
           </NavigationContainer>
         </PersistGate>
       </Provider>

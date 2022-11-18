@@ -6,6 +6,11 @@ export const setLang = (lang: string) => ({
   lang,
 });
 
+export const setToken = (token: string) => ({
+  type: types.SET_TOKEN,
+  token,
+});
+
 export const asyncSet = () => {
   return async (dispatch: Dispatch<any>) => {
     const lang = await new Promise(resolve => {

@@ -5,6 +5,7 @@ import * as types from '../../mutation-types';
 
 const globalState = {
   lang: 'zh',
+  token: null,
 };
 
 const global = (state = globalState, action: AnyAction) => {
@@ -13,7 +14,9 @@ const global = (state = globalState, action: AnyAction) => {
       case types.SET_LANG:
         draftState.lang = action.lang;
         break;
-
+      case types.SET_TOKEN:
+        draftState.token = action.token;
+        break;
       default:
         return draftState;
     }

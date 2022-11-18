@@ -1,13 +1,16 @@
-import React, {lazy} from 'react';
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {store} from '../store';
 
 const Stack = createNativeStackNavigator();
 
 import routers from './route';
 
-const createRoute = () => {
+const CreateRoute = () => {
+  const {token} = store.getState().global;
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={token ? 'Tab' : 'Login'}>
       {routers.map(item => (
         <Stack.Screen
           component={item.components}
@@ -20,4 +23,4 @@ const createRoute = () => {
   );
 };
 
-export default createRoute;
+export default CreateRoute;

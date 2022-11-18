@@ -1,19 +1,17 @@
-import {FC, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import React, {Text, Button, View, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
+import {useNavigation} from '@react-navigation/native';
 
-import {setLang} from '../../store/modules/global/action';
+import {setLang, setToken} from '../../store/modules/global/action';
 import {getInfo} from '../../api/home';
 
-interface IHomeProps {
-  lang: string;
-  setLang: (lang: string) => void;
-}
-
-const Home: FC<any> = ({lang, setLang, navigation}) => {
+const Home = props => {
   const {i18n, t} = useTranslation();
   const [info, setInfo] = useState({});
+  const navigation = useNavigation<string>();
+  const {lang, token, setLang, setToken} = props;
 
   const changeLang = () => {
     setLang(lang === 'zh' ? 'en' : 'zh');
@@ -35,9 +33,11 @@ const Home: FC<any> = ({lang, setLang, navigation}) => {
       <View>
         <Text>home{lang}</Text>
         <Text>多语言{t('lang')}</Text>
+        <Text>token:{token}</Text>
         <Text>{JSON.stringify(info)}</Text>
         <Button onPress={changeLang} title="change" />
         <Button onPress={getInfos} title="获取消息" />
+        <Button onPress={() => setToken()} title="清除token" />
         <Button
           onPress={() => navigation.navigate('Info')}
           title="跳转到Info"
@@ -58,4 +58,5 @@ const Home: FC<any> = ({lang, setLang, navigation}) => {
 
 export default connect((state: any) => state.global, {
   setLang,
+  setToken,
 })(Home);
