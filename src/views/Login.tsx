@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,10 +9,9 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 import {produce} from 'immer';
-import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 
-import {setToken} from '../store/modules/global/action';
+import {setGlobalToken} from '../store/modules/global/action';
 
 import CInput from '../components/Input';
 import CButton from '../components/Button';
@@ -22,8 +21,15 @@ import logo from '../assets/img/logo.png';
 
 const {height} = Dimensions.get('window');
 
-const Login = props => {
-  const navigation = useNavigation();
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+import type {RootStackParamList} from '../router/types';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'News'> & {
+  setToken: typeof setGlobalToken;
+};
+
+const Login: FC<Props> = ({navigation, setToken}) => {
   const [form, setForm] = useState({
     mobile: '',
     pwd: '',
@@ -39,8 +45,11 @@ const Login = props => {
 
   const login = () => {
     if (form.mobile === '13648355255' && form.pwd === 'hyh895623') {
-      props.setToken('123456');
-      navigation.navigate('TabHome', {});
+      setToken('123456');
+      if (navigation.canGoBack()) {
+        return navigation.goBack();
+      }
+      navigation.navigate('Tab');
     } else {
       Alert.alert('提示', '用户名或密码错误', [
         {
@@ -119,5 +128,5 @@ const style = StyleSheet.create({
 });
 
 export default connect((state: any) => state.global, {
-  setToken,
+  setToken: setGlobalToken,
 })(Login);

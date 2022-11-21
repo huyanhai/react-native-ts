@@ -1,17 +1,27 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, FC} from 'react';
 import React, {Text, Button, View, SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {setLang, setToken} from '../../store/modules/global/action';
-import {getInfo} from '../../api/home';
+import type {RootStackParamList} from '../../../router/types';
 
-const Home = props => {
+import {
+  setGlobalLang,
+  setGlobalToken,
+} from '../../../store/modules/global/action';
+import {getInfo} from '../../../api/home';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'> & {
+  lang: string;
+  token: string;
+  setLang: typeof setGlobalLang;
+  setToken: typeof setGlobalToken;
+};
+
+const Home: FC<Props> = ({navigation, lang, token, setLang, setToken}) => {
   const {i18n, t} = useTranslation();
   const [info, setInfo] = useState({});
-  const navigation = useNavigation<string>();
-  const {lang, token, setLang, setToken} = props;
 
   const changeLang = () => {
     setLang(lang === 'zh' ? 'en' : 'zh');
@@ -23,10 +33,8 @@ const Home = props => {
   };
 
   useEffect(() => {
-    console.log('lang chang', lang);
-
     i18n.changeLanguage(lang);
-  }, [lang]);
+  }, [i18n, lang]);
 
   return (
     <SafeAreaView>
@@ -37,12 +45,12 @@ const Home = props => {
         <Text>{JSON.stringify(info)}</Text>
         <Button onPress={changeLang} title="change" />
         <Button onPress={getInfos} title="获取消息" />
-        <Button onPress={() => setToken()} title="清除token" />
+        <Button onPress={() => setToken('')} title="清除token" />
         <Button
           onPress={() => navigation.navigate('Info')}
           title="跳转到Info"
         />
-        <Button
+        {/* <Button
           onPress={() =>
             navigation.navigate('HomeInfo', {
               id: 1,
@@ -50,13 +58,13 @@ const Home = props => {
             })
           }
           title="跳转到详情"
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
 };
 
 export default connect((state: any) => state.global, {
-  setLang,
-  setToken,
+  setLang: setGlobalLang,
+  setToken: setGlobalToken,
 })(Home);

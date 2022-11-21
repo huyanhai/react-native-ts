@@ -1,9 +1,8 @@
-import {lazy} from 'react';
-import Tab from '../views/Tab';
+import Tab from '../views/Tab/Index';
 
 import Login from '../views/Login';
-import Info from '../Info';
-import News from '../News';
+import Info from '../views/Info';
+import News from '../views/News';
 
 export default [
   {

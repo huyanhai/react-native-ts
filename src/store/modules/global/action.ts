@@ -1,12 +1,12 @@
 import {Dispatch} from 'react';
 import * as types from '../../mutation-types';
 
-export const setLang = (lang: string) => ({
+export const setGlobalLang = (lang: string) => ({
   type: types.SET_LANG,
   lang,
 });
 
-export const setToken = (token: string) => ({
+export const setGlobalToken = (token: string) => ({
   type: types.SET_TOKEN,
   token,
 });
